@@ -3,7 +3,7 @@ package models;
 import java.time.LocalDateTime;
 
 public class Profile {
-    private int  id;
+    private int id;
     private int userId;
     private String name;
     private String bio;

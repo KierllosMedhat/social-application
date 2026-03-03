@@ -1,18 +1,28 @@
 package daos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+
 import models.Profile;
 import models.User;
-import utils.DatabaseConnection;
 
-import java.sql.*;
 
 public class UserDao {
+    private Connection connection;
+
+    public UserDao(Connection connection) {
+        this.connection = connection;
+    }
 
     public User createUser(User user) throws SQLException {
         String sql = "INSERT INTO users (email, password_hash) VALUES (?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = connection.prepareStatement
+        (sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPasswordHash());
@@ -39,8 +49,7 @@ public class UserDao {
                 "FROM users u LEFT JOIN profiles p ON u.user_id = p.user_id " +
                 "WHERE u.email = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -57,8 +66,7 @@ public class UserDao {
                 "FROM users u LEFT JOIN profiles p ON u.user_id = p.user_id " +
                 "WHERE u.user_id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
@@ -95,10 +103,10 @@ public class UserDao {
     }
 
     public boolean updateUser(User user) throws SQLException {
-        String sql = "UPDATE users SET email = ?, WHERE user_id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        String sql = "UPDATE users SET email = ?, password_hash = ? WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPasswordHash());
             stmt.setInt(3, user.getId());
             return stmt.executeUpdate() > 0;
         }
@@ -106,8 +114,7 @@ public class UserDao {
 
     public boolean deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE user_id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             return stmt.executeUpdate() > 0;
         }
@@ -115,8 +122,7 @@ public class UserDao {
 
     public boolean emailExists(String email) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE email = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
