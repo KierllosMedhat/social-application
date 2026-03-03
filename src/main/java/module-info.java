@@ -9,6 +9,9 @@ module com.example.social_application {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
+    requires jbcrypt;
+    requires java.dotenv;
     requires transitive javafx.graphics;
 
     opens com.example.social_application to javafx.fxml;
