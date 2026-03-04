@@ -3,14 +3,14 @@ package models;
 import java.time.LocalDateTime;
 
 public class Notification {
-    public enum Type {
+    public enum NotificationType {
         LIKE, COMMENT, FRIEND_REQUEST, FRIEND_ACCEPTED
     }
 
     private int notificationId;
     private int userId;
     private int referenceId; // postId, commentId, or friendId based on type
-    private Type type;
+    private NotificationType type;
     private String message;
     private boolean isRead;
     private LocalDateTime createdAt;
@@ -20,7 +20,7 @@ public class Notification {
     }
 
     // Basic constructor for creating new notifications (without notificationId and createdAt)
-    public Notification(int userId, int referenceId, Type type, String message) {
+    public Notification(int userId, int referenceId, NotificationType type, String message) {
         // Basic Validation: Don't allow a notification without a user
         if (userId <= 0)
             throw new IllegalArgumentException("User ID must be valid.");
@@ -36,7 +36,7 @@ public class Notification {
     }
 
     // Full constructor for fetching from Database (with all fields)
-    public Notification(int notificationId, int userId, int referenceId, Type type, String message, boolean isRead,
+    public Notification(int notificationId, int userId, int referenceId, NotificationType type, String message, boolean isRead,
             LocalDateTime createdAt) {
         this.notificationId = notificationId;
         this.userId = userId;
@@ -71,11 +71,11 @@ public class Notification {
         this.referenceId = referenceId;
     }
 
-    public Type getType() {
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(NotificationType type) {
         this.type = type;
     }
 

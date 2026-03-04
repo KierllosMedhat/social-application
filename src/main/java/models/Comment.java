@@ -10,8 +10,8 @@ public class Comment {
     String content;
     LocalDateTime createdAt;
 
-    //  Protected No-Args for Frameworks (Hibernate/Jackson)
-    protected Comment() {
+    //  No-Args for Frameworks (Hibernate/Jackson)
+    public Comment() {
     }
 
     // Constructor for creating new comments (without commentId and createdAt)
