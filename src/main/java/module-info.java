@@ -12,6 +12,7 @@ module com.example.social_application {
     requires java.sql;
     requires jbcrypt;
     requires java.dotenv;
+    requires transitive javafx.graphics;
 
     opens com.example.social_application to javafx.fxml;
     exports com.example.social_application;
