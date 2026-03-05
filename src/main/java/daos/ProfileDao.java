@@ -21,10 +21,10 @@ public class ProfileDao {
     }
 
     public void createProfile(Profile profile) throws SQLException {
-        String sql = "INSERT INTO profiles (user_id, bio, profile_picture, created_at) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO profiles (user_id, name, profile_picture, updated_at) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, profile.getUserId());
-            stmt.setString(2, profile.getBio());
+            stmt.setString(2, profile.getName());
             stmt.setString(3, profile.getProfilePicture());
             stmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             stmt.executeUpdate();

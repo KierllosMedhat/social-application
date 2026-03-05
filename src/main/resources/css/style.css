@@ -1,0 +1,174 @@
+/* ==================== ROOT VARIABLES ==================== */
+* {
+    -fx-primary-color: #4f46e5;
+    -fx-primary-hover: #4338ca;
+    -fx-secondary-color: #64748b;
+    -fx-bg-color: #f8fafc;
+    -fx-card-bg: #ffffff;
+    -fx-text-primary: #1e293b;
+    -fx-text-secondary: #64748b;
+    -fx-error-color: #ef4444;
+    -fx-success-color: #22c55e;
+    -fx-border-color: #e2e8f0;
+}
+
+/* ==================== BACKGROUND & CONTAINERS ==================== */
+.login-container, .register-container {
+    -fx-background-color: -fx-bg-color;
+    -fx-alignment: center;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+.app-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.section-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.register-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.register-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ==================== INPUT FIELDS ==================== */
+.input-field {
+    -fx-pref-height: 40px;
+    -fx-background-color: -fx-card-bg;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 0 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.input-field:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.15), 8, 0, 0, 0);
+}
+
+.bio-field {
+    -fx-background-color: -fx-card-bg;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+.bio-field:focused {
+    -fx-border-color: -fx-primary-color;
+}
+
+/* ==================== BUTTONS ==================== */
+.primary-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-pref-height: 44px;
+}
+
+.primary-button:hover {
+    -fx-background-color: -fx-primary-hover;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #3730a3;
+}
+
+.primary-button:disabled {
+    -fx-background-color: #cbd5e1;
+    -fx-cursor: default;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-secondary-color;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    -fx-pref-height: 40px;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+/* ==================== LINKS ==================== */
+Hyperlink {
+    -fx-text-fill: -fx-primary-color;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+Hyperlink:hover {
+    -fx-text-fill: -fx-primary-hover;
+    -fx-underline: true;
+}
+
+/* ==================== MESSAGES ==================== */
+.error-text, .error-message {
+    -fx-text-fill: -fx-error-color;
+    -fx-font-size: 12px;
+    -fx-padding: 8px 12px;
+    -fx-background-color: rgba(239, 68, 68, 0.08);
+    -fx-background-radius: 6px;
+}
+
+.success-message {
+    -fx-text-fill: -fx-success-color;
+    -fx-font-size: 12px;
+    -fx-padding: 8px 12px;
+    -fx-background-color: rgba(34, 197, 94, 0.08);
+    -fx-background-radius: 6px;
+}
+
+.hint-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+/* ==================== LOADING ==================== */
+ProgressIndicator {
+    -fx-progress-color: -fx-primary-color;
+}
+
+/* ==================== CARDS (for main app) ==================== */
+.post-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+.sidebar {
+    -fx-background-color: -fx-card-bg;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 0 1px 0 0;
+}

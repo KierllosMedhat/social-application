@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.RegisterController"
+      alignment="CENTER"
+      spacing="15"
+      styleClass="register-container"
+      prefWidth="400"
+      prefHeight="600">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Create Account" styleClass="register-title"/>
+    <Label text="Get started for free" styleClass="register-subtitle"/>
+
+    <VBox spacing="15" maxWidth="320">
+        <VBox spacing="5">
+            <Label text="Full Name" styleClass="field-label"/>
+            <TextField fx:id="nameField" promptText="John Doe" styleClass="input-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Email" styleClass="field-label"/>
+            <TextField fx:id="emailField" promptText="john@example.com" styleClass="input-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Password" styleClass="field-label"/>
+            <PasswordField fx:id="passwordField" promptText="Min 6 characters" styleClass="input-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Confirm Password" styleClass="field-label"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Repeat password" styleClass="input-field"/>
+        </VBox>
+    </VBox>
+
+    <Label fx:id="errorLabel" styleClass="error-text" visible="false" wrapText="true" maxWidth="320"/>
+    <Label fx:id="successLabel" styleClass="success-message" visible="false" wrapText="true" maxWidth="320"/>
+    <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
+
+    <Button fx:id="registerButton" text="Create Account" onAction="#handleRegister"
+            styleClass="primary-button" maxWidth="320"/>
+
+    <HBox alignment="CENTER" spacing="5">
+        <Label text="Have an account?" styleClass="hint-text"/>
+        <Hyperlink fx:id="loginLink" text="Sign in" onAction="#handleLoginRedirect"/>
+    </HBox>
+
+</VBox>

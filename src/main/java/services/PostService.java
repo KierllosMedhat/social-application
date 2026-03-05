@@ -4,7 +4,6 @@ import java.sql.Connection;
 
 import daos.PostDao;
 import models.Post;
-import models.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
