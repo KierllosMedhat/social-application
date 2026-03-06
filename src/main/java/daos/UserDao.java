@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import models.Profile;
 import models.User;
-
 
 public class UserDao {
     private Connection connection;
@@ -21,8 +22,7 @@ public class UserDao {
     public User createUser(User user) throws SQLException {
         String sql = "INSERT INTO users (email, password_hash) VALUES (?, ?)";
 
-        try (PreparedStatement stmt = connection.prepareStatement
-        (sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPasswordHash());
@@ -89,7 +89,6 @@ public class UserDao {
             user.setCreatedAt(createdAt.toLocalDateTime());
         }
 
-
         // Map profile if exists
         String name = rs.getString("name");
         if (name != null) {
@@ -127,5 +126,29 @@ public class UserDao {
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         }
+    }
+
+    /**
+     * Search users by name or email. Returns users whose name or email contains the
+     * query.
+     * Excludes the searching user from results.
+     */
+    public List<User> searchUsers(String query, int excludeUserId) throws SQLException {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT u.*, p.profile_id, p.name, p.bio, p.profile_picture " +
+                "FROM users u LEFT JOIN profiles p ON u.user_id = p.user_id " +
+                "WHERE u.user_id != ? AND (u.email LIKE ? OR p.name LIKE ?) " +
+                "ORDER BY p.name ASC LIMIT 20";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            String pattern = "%" + query + "%";
+            stmt.setInt(1, excludeUserId);
+            stmt.setString(2, pattern);
+            stmt.setString(3, pattern);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                users.add(mapResultSetToUser(rs));
+            }
+        }
+        return users;
     }
 }

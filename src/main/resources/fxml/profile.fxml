@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ProfileController"
+            styleClass="main-container">
+
+    <!-- LEFT SIDEBAR (Same as main feed) -->
+    <left>
+        <VBox prefWidth="250" styleClass="sidebar" spacing="8">
+            <padding>
+                <Insets top="20" right="16" bottom="20" left="16"/>
+            </padding>
+
+            <Label text="Social App" styleClass="sidebar-logo"/>
+
+            <VBox styleClass="user-card" spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Circle fx:id="sidebarAvatar" radius="24" styleClass="avatar-circle"/>
+                    <VBox spacing="2">
+                        <Label fx:id="sidebarNameLabel" text="User Name" styleClass="user-name"/>
+                        <Label fx:id="sidebarEmailLabel" text="user@email.com" styleClass="user-email"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="4" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="16"/>
+                </padding>
+
+                <Button fx:id="feedBtn" text="🏠  Feed" onAction="#handleFeedNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="profileBtn" text="👤  Profile" onAction="#handleProfileNav"
+                        styleClass="nav-button, nav-button-active" maxWidth="Infinity"/>
+                <Button fx:id="friendsBtn" text="👥  Friends" onAction="#handleFriendsNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="notificationsBtn" text="🔔  Notifications"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Separator/>
+                <Button fx:id="logoutBtn" text="🚪  Logout" onAction="#handleLogout"
+                        styleClass="nav-button, nav-button-danger" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CENTER - PROFILE CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="profile-scroll">
+            <VBox styleClass="profile-container" spacing="24">
+                <padding>
+                    <Insets top="24" right="40" bottom="40" left="40"/>
+                </padding>
+
+                <!-- Profile Header Card -->
+                <VBox styleClass="profile-header-card" spacing="20">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+
+                    <!-- Cover + Avatar area -->
+                    <HBox alignment="CENTER_LEFT" spacing="24">
+                        <!-- Large Avatar -->
+                        <StackPane>
+                            <Circle fx:id="profileAvatar" radius="60" styleClass="profile-avatar-large"/>
+                            <Button fx:id="changeAvatarBtn" text="📷" styleClass="avatar-edit-btn"
+                                    onAction="#handleChangeAvatar"/>
+                        </StackPane>
+
+                        <!-- Name and Info -->
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label fx:id="profileNameLabel" text="User Name" styleClass="profile-name"/>
+                                <Button fx:id="editProfileBtn" text="✏️ Edit Profile"
+                                        onAction="#handleEditProfile" styleClass="secondary-button"/>
+                            </HBox>
+                            <Label fx:id="profileEmailLabel" text="user@email.com" styleClass="profile-email"/>
+                            <Label fx:id="profileBioLabel" text="No bio yet..." styleClass="profile-bio" wrapText="true"/>
+                            <Label fx:id="joinedDateLabel" text="Joined March 2024" styleClass="profile-joined"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Stats Row -->
+                    <HBox spacing="40" alignment="CENTER_LEFT" styleClass="profile-stats">
+                        <VBox alignment="CENTER" spacing="4">
+                            <Label fx:id="postsCount" text="0" styleClass="stat-number-large"/>
+                            <Label text="Posts" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4">
+                            <Label fx:id="friendsCount" text="0" styleClass="stat-number-large"/>
+                            <Label text="Friends" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4">
+                            <Label fx:id="likesCount" text="0" styleClass="stat-number-large"/>
+                            <Label text="Likes Received" styleClass="stat-label"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Edit Profile Form (Initially Hidden) -->
+                <VBox fx:id="editProfileForm" styleClass="edit-form-card" spacing="16" visible="false" managed="false">
+                    <padding>
+                        <Insets top="24" right="24" bottom="24" left="24"/>
+                    </padding>
+
+                    <Label text="Edit Profile" styleClass="card-title"/>
+
+                    <VBox spacing="8">
+                        <Label text="Display Name" styleClass="field-label"/>
+                        <TextField fx:id="editNameField" styleClass="input-field" maxWidth="400"/>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="Bio" styleClass="field-label"/>
+                        <TextArea fx:id="editBioField" styleClass="bio-field" prefRowCount="4"
+                                  maxWidth="400" wrapText="true"/>
+                    </VBox>
+
+                    <HBox spacing="12">
+                        <Button text="Save Changes" onAction="#handleSaveProfile" styleClass="primary-button"/>
+                        <Button text="Cancel" onAction="#handleCancelEdit" styleClass="secondary-button"/>
+                    </HBox>
+
+                    <Label fx:id="editErrorLabel" styleClass="error-text" visible="false"/>
+                </VBox>
+
+                <!-- Tabs for Posts/About -->
+                <HBox spacing="8" styleClass="profile-tabs">
+                    <Button fx:id="postsTabBtn" text="Posts" onAction="#handlePostsTab"
+                            styleClass="tab-button, tab-button-active"/>
+                    <Button fx:id="aboutTabBtn" text="About" onAction="#handleAboutTab"
+                            styleClass="tab-button"/>
+                </HBox>
+
+                <!-- User's Posts Section -->
+                <VBox fx:id="postsSection" spacing="16">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="My Posts" styleClass="section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="↻ Refresh" onAction="#handleRefreshPosts" styleClass="secondary-button"/>
+                    </HBox>
+
+                    <VBox fx:id="userPostsContainer" spacing="16">
+                        <!-- Posts loaded dynamically -->
+                    </VBox>
+
+                    <VBox fx:id="noPostsMessage" alignment="CENTER" spacing="8" visible="false" managed="false">
+                        <padding>
+                            <Insets top="40" bottom="40"/>
+                        </padding>
+                        <Label text="No posts yet" styleClass="empty-title"/>
+                        <Label text="Share your first post from the feed!" styleClass="hint-text"/>
+                    </VBox>
+
+                    <HBox fx:id="loadingPosts" alignment="CENTER" visible="false" managed="false">
+                        <ProgressIndicator/>
+                    </HBox>
+                </VBox>
+
+                <!-- About Section (Hidden by default) -->
+                <VBox fx:id="aboutSection" spacing="16" visible="false" managed="false">
+                    <VBox styleClass="about-card" spacing="12">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+
+                        <Label text="About" styleClass="card-title"/>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="📧" styleClass="about-icon"/>
+                            <VBox spacing="2">
+                                <Label text="Email" styleClass="about-label"/>
+                                <Label fx:id="aboutEmailLabel" text="user@email.com" styleClass="about-value"/>
+                            </VBox>
+                        </HBox>
+
+                        <Separator/>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="📅" styleClass="about-icon"/>
+                            <VBox spacing="2">
+                                <Label text="Member Since" styleClass="about-label"/>
+                                <Label fx:id="aboutJoinedLabel" text="March 2024" styleClass="about-value"/>
+                            </VBox>
+                        </HBox>
+
+                        <Separator/>
+
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="📝" styleClass="about-icon"/>
+                            <VBox spacing="2">
+                                <Label text="Bio" styleClass="about-label"/>
+                                <Label fx:id="aboutBioLabel" text="No bio provided" styleClass="about-value" wrapText="true"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

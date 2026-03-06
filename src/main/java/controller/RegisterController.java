@@ -15,16 +15,26 @@ import java.sql.SQLException;
 
 public class RegisterController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private TextArea bioField;
-    @FXML private Label errorLabel;
-    @FXML private Label successLabel;
-    @FXML private Button registerButton;
-    @FXML private Hyperlink loginLink;
-    @FXML private ProgressIndicator loadingIndicator;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private TextArea bioField;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private Label successLabel;
+    @FXML
+    private Button registerButton;
+    @FXML
+    private Hyperlink loginLink;
+    @FXML
+    private ProgressIndicator loadingIndicator;
 
     private AuthService authService;
 
@@ -78,12 +88,8 @@ public class RegisterController {
             return false;
         }
 
-        // Check if email already exists
-        if (authService.validEmail(email)) {
-            showError("This email is already registered");
-            return false;
-        }
-
+        // Note: Duplicate email check is done in AuthService.register()
+        // to avoid blocking UI thread with database calls
         return true;
     }
 
@@ -139,11 +145,16 @@ public class RegisterController {
     private void checkPasswordStrength(String password) {
         int strength = 0;
 
-        if (password.length() >= 6) strength++;
-        if (password.length() >= 10) strength++;
-        if (password.matches(".*[A-Z].*")) strength++;
-        if (password.matches(".*[0-9].*")) strength++;
-        if (password.matches(".*[!@#$%^&*].*")) strength++;
+        if (password.length() >= 6)
+            strength++;
+        if (password.length() >= 10)
+            strength++;
+        if (password.matches(".*[A-Z].*"))
+            strength++;
+        if (password.matches(".*[0-9].*"))
+            strength++;
+        if (password.matches(".*[!@#$%^&*].*"))
+            strength++;
 
         // Update UI based on strength (optional - add a progress bar or label in FXML)
         Color color;
@@ -183,6 +194,7 @@ public class RegisterController {
 
         // Show loading state
         setLoading(true);
+        System.out.println("DEBUG: Starting registration...");
 
         // Run registration in background thread to avoid freezing UI
         new Thread(() -> {
@@ -191,29 +203,32 @@ public class RegisterController {
                 String email = emailField.getText().trim();
                 String password = passwordField.getText();
 
+                System.out.println("DEBUG: Calling authService.register()...");
                 // Register user
                 authService.register(email, password, name);
-
-
+                System.out.println("DEBUG: Registration successful!");
 
                 // Success - update UI on JavaFX thread
                 javafx.application.Platform.runLater(() -> {
+                    setLoading(false);
                     showSuccess("Registration successful! Redirecting to login...");
 
                     // Redirect to login after 2 seconds
                     javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(
-                            javafx.util.Duration.seconds(2)
-                    );
+                            javafx.util.Duration.seconds(2));
                     delay.setOnFinished(event -> navigateToLogin());
                     delay.play();
                 });
 
             } catch (IllegalArgumentException e) {
+                System.out.println("DEBUG: IllegalArgumentException: " + e.getMessage());
                 javafx.application.Platform.runLater(() -> {
                     showError(e.getMessage());
                     setLoading(false);
                 });
             } catch (SQLException e) {
+                System.out.println("DEBUG: SQLException: " + e.getMessage());
+                e.printStackTrace();
                 javafx.application.Platform.runLater(() -> {
                     showError("Database error: " + e.getMessage());
                     setLoading(false);
@@ -256,7 +271,8 @@ public class RegisterController {
         emailField.setDisable(loading);
         passwordField.setDisable(loading);
         confirmPasswordField.setDisable(loading);
-        bioField.setDisable(loading);
+        if (bioField != null)
+            bioField.setDisable(loading);
         loginLink.setDisable(loading);
     }
 
@@ -285,7 +301,8 @@ public class RegisterController {
         emailField.clear();
         passwordField.clear();
         confirmPasswordField.clear();
-        bioField.clear();
+        if (bioField != null)
+            bioField.clear();
         hideMessages();
 
         // Reset styles

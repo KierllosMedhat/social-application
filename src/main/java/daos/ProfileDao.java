@@ -11,8 +11,6 @@ import java.util.List;
 
 import models.Profile;
 
-
-
 public class ProfileDao {
     private Connection connection;
 
@@ -31,10 +29,10 @@ public class ProfileDao {
         }
     }
 
-    public Profile getProfileById(int profileId) throws SQLException {
-        String sql = "SELECT * FROM profiles WHERE id = ?";
+    public Profile getProfileById(int userId) throws SQLException {
+        String sql = "SELECT * FROM profiles WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, profileId);
+            stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return mapRowToProfile(rs);
@@ -56,30 +54,34 @@ public class ProfileDao {
     }
 
     public void updateProfile(Profile profile) throws SQLException {
-        String sql = "UPDATE profiles SET bio = ?, profile_picture = ? WHERE id = ?";
+        String sql = "UPDATE profiles SET name = ?, bio = ?, profile_picture = ? WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, profile.getBio());
-            stmt.setString(2, profile.getProfilePicture());
-            stmt.setInt(3, profile.getUserId());
+            stmt.setString(1, profile.getName());
+            stmt.setString(2, profile.getBio());
+            stmt.setString(3, profile.getProfilePicture());
+            stmt.setInt(4, profile.getUserId());
             stmt.executeUpdate();
         }
     }
 
-    public void deleteProfile(int profileId) throws SQLException {
-        String sql = "DELETE FROM profiles WHERE id = ?";
+    public void deleteProfile(int userId) throws SQLException {
+        String sql = "DELETE FROM profiles WHERE user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, profileId);
+            stmt.setInt(1, userId);
             stmt.executeUpdate();
         }
     }
 
     private Profile mapRowToProfile(ResultSet rs) throws SQLException {
         Profile profile = new Profile();
-        profile.setUserId(rs.getInt("id"));
         profile.setUserId(rs.getInt("user_id"));
+        profile.setName(rs.getString("name"));
         profile.setBio(rs.getString("bio"));
         profile.setProfilePicture(rs.getString("profile_picture"));
-        profile.setUpdatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+        Timestamp updatedAt = rs.getTimestamp("updated_at");
+        if (updatedAt != null) {
+            profile.setUpdatedAt(updatedAt.toLocalDateTime());
+        }
         return profile;
     }
 }

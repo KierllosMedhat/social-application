@@ -159,6 +159,137 @@ ProgressIndicator {
     -fx-progress-color: -fx-primary-color;
 }
 
+/* ==================== MAIN LAYOUT ==================== */
+.main-container {
+    -fx-background-color: -fx-bg-color;
+}
+
+.feed-container, .profile-container, .friends-container {
+    -fx-background-color: -fx-bg-color;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+    -fx-background-color: -fx-card-bg;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.sidebar-logo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+    -fx-padding: 0 0 16px 0;
+}
+
+.user-card {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 12px;
+    -fx-padding: 12px;
+}
+
+.user-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.user-email {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.avatar-circle {
+    -fx-fill: -fx-primary-color;
+}
+
+/* ==================== NAVIGATION BUTTONS ==================== */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.nav-button-active {
+    -fx-background-color: rgba(79, 70, 229, 0.1);
+    -fx-text-fill: -fx-primary-color;
+    -fx-font-weight: bold;
+}
+
+.nav-button-danger:hover {
+    -fx-background-color: rgba(239, 68, 68, 0.1);
+    -fx-text-fill: -fx-error-color;
+}
+
+/* ==================== RIGHT SIDEBAR ==================== */
+.right-sidebar {
+    -fx-background-color: -fx-bg-color;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 0 0 0 1px;
+}
+
+.suggestion-card, .stats-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.03), 8, 0, 0, 1);
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.card-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.stat-number {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.stat-number-large {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.stat-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+/* ==================== PAGE HEADERS ==================== */
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.section-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
 /* ==================== CARDS (for main app) ==================== */
 .post-card {
     -fx-background-color: -fx-card-bg;
@@ -167,8 +298,317 @@ ProgressIndicator {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
 }
 
-.sidebar {
+.create-post-card {
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+}
+
+.post-textarea {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+}
+
+.post-textarea:focused {
+    -fx-border-color: -fx-primary-color;
+}
+
+.privacy-combo {
     -fx-background-color: -fx-card-bg;
     -fx-border-color: -fx-border-color;
-    -fx-border-width: 0 1px 0 0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+/* ==================== POST ELEMENTS ==================== */
+.post-author {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.post-timestamp {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.post-content {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-primary;
+    -fx-line-spacing: 2px;
+}
+
+.privacy-badge {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-padding: 4px 8px;
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 4px;
+}
+
+.post-options-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 16px;
+    -fx-padding: 4px 8px;
+}
+
+.post-options-btn:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 4px;
+}
+
+.post-actions {
+    -fx-padding: 8px 0 0 0;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.action-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ==================== SCROLL PANES ==================== */
+.posts-scroll, .profile-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.posts-scroll > .viewport, .profile-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.posts-list {
+    -fx-padding: 0;
+}
+
+/* ==================== EMPTY STATES ==================== */
+.empty-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.empty-icon {
+    -fx-font-size: 48px;
+}
+
+/* ==================== PROFILE PAGE ==================== */
+.profile-header-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 12, 0, 0, 2);
+}
+
+.profile-avatar-large {
+    -fx-fill: -fx-primary-color;
+}
+
+.avatar-edit-btn {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 50%;
+    -fx-padding: 6px;
+    -fx-font-size: 12px;
+    -fx-translate-x: 35px;
+    -fx-translate-y: 35px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 1);
+    -fx-cursor: hand;
+}
+
+.profile-name {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.profile-email {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.profile-bio {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 8px 0;
+}
+
+.profile-joined {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.profile-stats {
+    -fx-padding: 16px 0 0 0;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ==================== TABS ==================== */
+.profile-tabs, .friends-tabs {
+    -fx-padding: 0;
+}
+
+.tab-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.tab-button:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.tab-button-active {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ==================== EDIT FORM ==================== */
+.edit-form-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+/* ==================== ABOUT SECTION ==================== */
+.about-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+.about-icon {
+    -fx-font-size: 24px;
+}
+
+.about-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.about-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ==================== FRIENDS PAGE ==================== */
+.search-field {
+    -fx-background-color: -fx-card-bg;
+    -fx-border-color: -fx-border-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 13px;
+}
+
+.search-field:focused {
+    -fx-border-color: -fx-primary-color;
+}
+
+.friends-grid {
+    -fx-padding: 8px 0;
+}
+
+.friend-card {
+    -fx-background-color: -fx-card-bg;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+}
+
+.friend-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 3);
+}
+
+.friend-avatar {
+    -fx-fill: linear-gradient(to bottom right, #4f46e5, #7c3aed);
+}
+
+.friend-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ==================== SMALL BUTTONS ==================== */
+.secondary-button-small {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.secondary-button-small:hover {
+    -fx-background-color: rgba(79, 70, 229, 0.1);
+}
+
+.danger-button-small {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-error-color;
+    -fx-border-color: -fx-error-color;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.danger-button-small:hover {
+    -fx-background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ==================== SCROLLBAR STYLING ==================== */
+.scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 4px;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+.scroll-pane > .scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical > .increment-button,
+.scroll-pane > .scroll-bar:vertical > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .scroll-bar:vertical > .increment-button > .increment-arrow,
+.scroll-pane > .scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
 }
