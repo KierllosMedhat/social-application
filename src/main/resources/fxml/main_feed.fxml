@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MainFeedController"
+            styleClass="main-container">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250" styleClass="sidebar" spacing="8">
+            <padding>
+                <Insets top="20" right="16" bottom="20" left="16"/>
+            </padding>
+
+            <!-- App Logo -->
+            <Label text="Social App" styleClass="sidebar-logo"/>
+
+            <!-- User Info Card -->
+            <VBox styleClass="user-card" spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Circle fx:id="avatarCircle" radius="24" styleClass="avatar-circle"/>
+                    <VBox spacing="2">
+                        <Label fx:id="userNameLabel" text="User Name" styleClass="user-name"/>
+                        <Label fx:id="userEmailLabel" text="user@email.com" styleClass="user-email"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Navigation Menu -->
+            <VBox spacing="4" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="16"/>
+                </padding>
+
+                <Button fx:id="feedBtn" text="🏠  Feed" onAction="#handleFeedNav"
+                        styleClass="nav-button, nav-button-active" maxWidth="Infinity"/>
+                <Button fx:id="profileBtn" text="👤  Profile" onAction="#handleProfileNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="friendsBtn" text="👥  Friends" onAction="#handleFriendsNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="notificationsBtn" text="🔔  Notifications" onAction="#handleNotificationsNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Separator/>
+                <Button fx:id="logoutBtn" text="🚪  Logout" onAction="#handleLogout"
+                        styleClass="nav-button, nav-button-danger" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CENTER - MAIN CONTENT -->
+    <center>
+        <VBox styleClass="feed-container" spacing="20">
+            <padding>
+                <Insets top="24" right="24" bottom="24" left="24"/>
+            </padding>
+
+            <!-- Page Header -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="pageTitle" text="Your Feed" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="refreshBtn" text="↻ Refresh" onAction="#handleRefresh" styleClass="secondary-button"/>
+            </HBox>
+
+            <!-- Create Post Card -->
+            <VBox styleClass="post-card, create-post-card" spacing="12">
+                <Label text="Share something..." styleClass="card-label"/>
+                <TextArea fx:id="postContentArea" promptText="What's on your mind?"
+                          styleClass="post-textarea" prefRowCount="3" wrapText="true"/>
+
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <ComboBox fx:id="privacyComboBox" promptText="Privacy" styleClass="privacy-combo"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="attachImageBtn" text="📷 Image" styleClass="secondary-button"/>
+                    <Button fx:id="postBtn" text="Post" onAction="#handleCreatePost" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+
+            <!-- Posts List -->
+            <ScrollPane fitToWidth="true" styleClass="posts-scroll" VBox.vgrow="ALWAYS">
+                <VBox fx:id="postsContainer" spacing="16" styleClass="posts-list">
+                    <!-- Posts will be loaded dynamically -->
+                </VBox>
+            </ScrollPane>
+
+            <!-- Loading Indicator -->
+            <HBox fx:id="loadingBox" alignment="CENTER" visible="false" managed="false">
+                <ProgressIndicator/>
+                <Label text="Loading posts..." styleClass="hint-text"/>
+            </HBox>
+
+            <!-- Empty State -->
+            <VBox fx:id="emptyState" alignment="CENTER" spacing="8" visible="false" managed="false">
+                <Label text="No posts yet" styleClass="empty-title"/>
+                <Label text="Be the first to share something!" styleClass="hint-text"/>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- RIGHT SIDEBAR - Suggestions/Trends (Optional) -->
+    <right>
+        <VBox prefWidth="280" styleClass="right-sidebar" spacing="16">
+            <padding>
+                <Insets top="24" right="20" bottom="24" left="20"/>
+            </padding>
+
+            <!-- Friend Suggestions -->
+            <VBox styleClass="suggestion-card" spacing="12">
+                <Label text="Friend Suggestions" styleClass="card-title"/>
+                <VBox fx:id="suggestionsContainer" spacing="8">
+                    <!-- Suggestions loaded dynamically -->
+                </VBox>
+            </VBox>
+
+            <!-- Quick Stats -->
+            <VBox styleClass="stats-card" spacing="12">
+                <Label text="Your Activity" styleClass="card-title"/>
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label fx:id="postsCountLabel" text="0" styleClass="stat-number"/>
+                        <Label text="Posts" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label fx:id="friendsCountLabel" text="0" styleClass="stat-number"/>
+                        <Label text="Friends" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label fx:id="likesCountLabel" text="0" styleClass="stat-number"/>
+                        <Label text="Likes" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </right>
+
+</BorderPane>

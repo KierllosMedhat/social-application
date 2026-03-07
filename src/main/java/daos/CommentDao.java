@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import models.Comment;
 
 public class CommentDao {
@@ -59,7 +58,7 @@ public class CommentDao {
     return comments;
   }
 
-  boolean updateComment(Comment comment) throws SQLException {
+  public boolean updateComment(Comment comment) throws SQLException {
     String sql = "UPDATE comments SET content = ? WHERE comment_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       stmt.setString(1, comment.getContent());
@@ -101,6 +100,5 @@ public class CommentDao {
     comment.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
     return comment;
   }
-
 
 }

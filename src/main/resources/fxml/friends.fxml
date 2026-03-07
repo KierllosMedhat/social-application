@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.FriendsController"
+            styleClass="main-container">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="250" styleClass="sidebar" spacing="8">
+            <padding>
+                <Insets top="20" right="16" bottom="20" left="16"/>
+            </padding>
+
+            <Label text="Social App" styleClass="sidebar-logo"/>
+
+            <VBox styleClass="user-card" spacing="8">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Circle fx:id="sidebarAvatar" radius="24" styleClass="avatar-circle"/>
+                    <VBox spacing="2">
+                        <Label fx:id="sidebarNameLabel" text="User Name" styleClass="user-name"/>
+                        <Label fx:id="sidebarEmailLabel" text="user@email.com" styleClass="user-email"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="4" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="16"/>
+                </padding>
+
+                <Button fx:id="feedBtn" text="🏠  Feed" onAction="#handleFeedNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="profileBtn" text="👤  Profile" onAction="#handleProfileNav"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+                <Button fx:id="friendsBtn" text="👥  Friends"
+                        styleClass="nav-button, nav-button-active" maxWidth="Infinity"/>
+                <Button fx:id="notificationsBtn" text="🔔  Notifications"
+                        styleClass="nav-button" maxWidth="Infinity"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Separator/>
+                <Button fx:id="logoutBtn" text="🚪  Logout" onAction="#handleLogout"
+                        styleClass="nav-button, nav-button-danger" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CENTER - FRIENDS CONTENT -->
+    <center>
+        <VBox styleClass="friends-container" spacing="24">
+            <padding>
+                <Insets top="24" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <!-- Page Header -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label text="Friends" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="🔍 Search friends..."
+                           styleClass="search-field" prefWidth="250"/>
+            </HBox>
+
+            <!-- Tabs -->
+            <HBox spacing="8" styleClass="friends-tabs">
+                <Button fx:id="allFriendsTab" text="All Friends" onAction="#handleAllFriendsTab"
+                        styleClass="tab-button, tab-button-active"/>
+                <Button fx:id="requestsTab" text="Friend Requests" onAction="#handleRequestsTab"
+                        styleClass="tab-button"/>
+                <Button fx:id="findFriendsTab" text="Find Friends" onAction="#handleFindFriendsTab"
+                        styleClass="tab-button"/>
+            </HBox>
+
+            <!-- All Friends Section -->
+            <VBox fx:id="allFriendsSection" spacing="16">
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="friendsCountLabel" text="0 Friends" styleClass="section-subtitle"/>
+                </HBox>
+
+                <FlowPane fx:id="friendsGrid" hgap="16" vgap="16" styleClass="friends-grid">
+                    <!-- Friend cards loaded dynamically -->
+                </FlowPane>
+
+                <VBox fx:id="noFriendsMessage" alignment="CENTER" spacing="8" visible="false" managed="false">
+                    <padding>
+                        <Insets top="60" bottom="60"/>
+                    </padding>
+                    <Label text="👥" styleClass="empty-icon"/>
+                    <Label text="No friends yet" styleClass="empty-title"/>
+                    <Label text="Find people you know and send them a friend request!" styleClass="hint-text"/>
+                    <Button text="Find Friends" onAction="#handleFindFriendsTab" styleClass="primary-button"/>
+                </VBox>
+
+                <HBox fx:id="loadingFriends" alignment="CENTER" visible="false" managed="false">
+                    <ProgressIndicator/>
+                    <Label text="Loading friends..." styleClass="hint-text"/>
+                </HBox>
+            </VBox>
+
+            <!-- Friend Requests Section (Hidden by default) -->
+            <VBox fx:id="requestsSection" spacing="16" visible="false" managed="false">
+                <Label text="Pending Requests" styleClass="section-subtitle"/>
+
+                <VBox fx:id="requestsContainer" spacing="12">
+                    <!-- Request cards loaded dynamically -->
+                </VBox>
+
+                <VBox fx:id="noRequestsMessage" alignment="CENTER" spacing="8" visible="false" managed="false">
+                    <padding>
+                        <Insets top="60" bottom="60"/>
+                    </padding>
+                    <Label text="📭" styleClass="empty-icon"/>
+                    <Label text="No pending requests" styleClass="empty-title"/>
+                    <Label text="When someone sends you a friend request, it will appear here." styleClass="hint-text"/>
+                </VBox>
+            </VBox>
+
+            <!-- Find Friends Section (Hidden by default) -->
+            <VBox fx:id="findFriendsSection" spacing="16" visible="false" managed="false">
+                <Label text="People You May Know" styleClass="section-subtitle"/>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <TextField fx:id="findSearchField" promptText="Search by name or email..."
+                               styleClass="input-field" prefWidth="300"/>
+                    <Button text="Search" onAction="#handleSearchUsers" styleClass="primary-button"/>
+                </HBox>
+
+                <FlowPane fx:id="suggestionsGrid" hgap="16" vgap="16" styleClass="friends-grid">
+                    <!-- Suggestion cards loaded dynamically -->
+                </FlowPane>
+
+                <VBox fx:id="noSuggestionsMessage" alignment="CENTER" spacing="8">
+                    <padding>
+                        <Insets top="40" bottom="40"/>
+                    </padding>
+                    <Label text="Search for people to add as friends" styleClass="hint-text"/>
+                </VBox>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
